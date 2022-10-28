@@ -1,0 +1,14 @@
+service: spring-boot-serverless
+provider:
+  name: aws
+  runtime: java8
+package:
+  artifact: build/distributions/lambda-0.0.1-SNAPSHOT.zip
+functions:
+  springBootServerless:
+    handler: com.poc.springbootserverless.LambdaHandler::handleRequest
+    events:
+      - http:
+          path: /users
+          method: get
+    timeout: 30

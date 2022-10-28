@@ -1,3 +1,15 @@
+buildscript {
+	ext {
+		springBootVersion = '2.7.5'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
@@ -18,8 +30,24 @@ repositories {
 	mavenCentral()
 }
 
+// Task for building the zip file for upload
+task buildZip(type: Zip) {
+	// set the base name of the zip file
+	from compileJava
+	from processResources
+	into('lib') {
+		from configurations.runtimeClasspath
+	}
+}
+build.dependsOn buildZip
+
+wrapper {
+	gradleVersion = '7.1.1'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.amazonaws.serverless:aws-serverless-java-container-spring:1.1'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
