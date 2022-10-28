@@ -7,7 +7,7 @@ Now if we go to the terminal and execute below command, the project will run on 
 
 http://localhost:8080/ will give a Whitelabel error since we don’t have any endpoint implemented for path “/”. With http://localhost:8080/users endpoint, our users list will be returned as below.
 
-### [{"name":"John","age":20},{"name":"Mike","age":25}]
+[{"name":"John","age":20},{"name":"Mike","age":25}]
 
 ## Convert application to run as a Lambda function
 
